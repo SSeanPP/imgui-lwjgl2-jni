@@ -1,0 +1,3 @@
+#define CIMGUI_DEFINE_ENUMS_AND_STRUCTS
+#define DCIMGUI_IMPLEMENTATION
+#include "dcimgui.h"
