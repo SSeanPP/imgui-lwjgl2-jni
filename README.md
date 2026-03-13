@@ -2,7 +2,7 @@
 
 JNI bindings for [Dear ImGui](https://github.com/ocornut/imgui) targeting **Java 1.6** and **LWJGL 2.9.3** (legacy OpenGL2).
 
-\---
+&#x20;
 
 ## Why does this exist?
 
@@ -22,7 +22,7 @@ imgui.h  ──►  dear\_bindings  ──►  dcimgui.h / dcimgui.cpp  (C API)
 
 A single build script handles all of it — cloning dependencies, generating C bindings, compiling the native library, and packaging the Java jar.
 
-\---
+&#x20;
 
 ## Current bindings
 
@@ -51,7 +51,7 @@ This is a young project — only what is listed here is wrapped and verified wor
 
 **Build:** Windows `.dll`, Linux `.so`, macOS `.dylib` — one script, no manual cmake.
 
-\---
+&#x20;
 
 ## Requirements
 
@@ -69,7 +69,7 @@ If you have multiple g++ versions installed, set `GXX` to point at the right one
 $env:GXX = "C:\\Program Files\\w64devkit\\bin\\g++.exe"
 ```
 
-\---
+&#x20;
 
 ## Building
 
@@ -127,7 +127,7 @@ python build.py --skip-compile    # skip native library compilation
 python build.py --skip-jar        # skip JAR compilation
 ```
 
-\---
+&#x20;
 
 ## Usage
 
@@ -193,7 +193,7 @@ public class MyApp {
 }
 ```
 
-\---
+&#x20;
 
 ## Project structure
 
@@ -214,7 +214,7 @@ imgui-lwjgl2-jni/
 └── out/                      # Build outputs (gitignored)
 ```
 
-\---
+&#x20;
 
 ## ImInput — LWJGL 2 input helper
 
@@ -248,7 +248,7 @@ if (!ImGui.wantCaptureMouse()) {
 
 ImGui always receives the events — `wantCaptureKeyboard` and `wantCaptureMouse` tell you whether ImGui actually consumed them so your game knows whether to act on them too.
 
-\---
+&#x20;
 
 ## Adding new bindings
 
@@ -290,7 +290,7 @@ python build.py --skip-bindings
 
 Contributions for additional wrapped functions are welcome — see [issues](https://github.com/yourname/imgui-lwjgl2-jni/issues) for the current tracking list of unwrapped functions.
 
-\---
+&#x20;
 
 ## Known limitations
 
@@ -299,7 +299,7 @@ Contributions for additional wrapped functions are welcome — see [issues](http
 * No multi-context support
 * Tested on Windows only so far — Linux and macOS builds are implemented but unverified
 
-\---
+&#x20;
 
 ## License
 
