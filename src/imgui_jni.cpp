@@ -4,10 +4,13 @@
 extern "C" {
 #include "dcimgui.h"
 #include "backends/dcimgui_impl_opengl2.h"
+
 }
 
 extern "C" {
 
+
+//Basic Context creation
 JNIEXPORT void JNICALL
 Java_imgui_ImGui_createContext(JNIEnv*, jclass)
 {
@@ -69,6 +72,7 @@ JNIEXPORT void JNICALL Java_imgui_ImGui_shutdownOpenGL2(JNIEnv*, jclass)
     cImGui_ImplOpenGL2_Shutdown();
 }
 
+// Demo (proves it works + demonstrates the java array C pointer rubbish)
 JNIEXPORT void JNICALL Java_imgui_ImGui_showDemoWindow(JNIEnv* env, jclass, jbooleanArray p_open)
 {
     // Step 1: get a C pointer into the Java array
@@ -81,6 +85,7 @@ JNIEXPORT void JNICALL Java_imgui_ImGui_showDemoWindow(JNIEnv* env, jclass, jboo
     env->ReleaseBooleanArrayElements(p_open, buf, 0);
 }
 
+// Keyboard + Mouse handling
 JNIEXPORT void JNICALL Java_imgui_ImGui_addKeyEvent(JNIEnv*, jclass, jint imguiKey, jboolean down)
 {
     ImGuiIO_AddKeyEvent(ImGui_GetIO(), (ImGuiKey)imguiKey, (bool)down);
@@ -114,6 +119,26 @@ JNIEXPORT void JNICALL Java_imgui_ImGui_setMousePos(JNIEnv*, jclass, jfloat x, j
 JNIEXPORT void JNICALL Java_imgui_ImGui_setMouseButton(JNIEnv*, jclass, jint btn, jboolean down)
 {
     ImGuiIO_AddMouseButtonEvent(ImGui_GetIO(), btn, (bool)down);
+}
+
+//Actual IMGUI components of interest
+JNIEXPORT void JNICALL Java_imgui_ImGui_text(JNIEnv* env, jclass, jstring label)
+{
+    const char* str = env->GetStringUTFChars(label, 0);
+    ImGui_Text("%s", str);
+    env->ReleaseStringUTFChars(label, str);
+}
+
+JNIEXPORT void JNICALL Java_imgui_ImGui_progressBar(JNIEnv* env, jclass, jfloat fraction, jstring overlay)
+{
+    const char* str = env->GetStringUTFChars(overlay, 0);
+    ImGui_ProgressBar(fraction, (ImVec2){-1, 0}, str);
+    env->ReleaseStringUTFChars(overlay, str);
+}
+
+JNIEXPORT void JNICALL Java_imgui_ImGui_separator(JNIEnv* env, jclass)
+{
+    ImGui_Separator();
 }
 
 }
