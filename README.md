@@ -1,6 +1,6 @@
 # imgui-lwjgl2-jni
 
-JNI bindings for [Dear ImGui](https://github.com/ocornut/imgui) targeting **Java 1.6** and **LWJGL 2.9.3** (legacy OpenGL2).
+JNI bindings for [Dear ImGui](https://github.com/ocornut/imgui) targeting **Java 1.6** and **LWJGL 2.9.3** (OpenGL3 - no GLFW).
 
 &#x20;
 
@@ -28,7 +28,7 @@ A single build script handles all of it - cloning dependencies, generating C bin
 
 This is a young project - only what is listed here is wrapped and verified working. Contributions welcome.
 
-**Lifecycle:** `createContext` / `destroyContext` / `initOpenGL2` / `shutdownOpenGL2` / `newFrame` / `render`
+**Lifecycle:** `createContext` / `destroyContext` / `initOpenGL3` / `shutdownOpenGL3` / `newFrame` / `render`
 
 **Windows:** `begin` / `end`
 
@@ -150,7 +150,7 @@ public class MyApp {
 
         // 2. Init ImGui after GL context exists
         ImGui.createContext();
-        ImGui.initOpenGL2();
+        ImGui.initOpenGL3();
 
         boolean[] open = { true };
 
@@ -186,7 +186,7 @@ public class MyApp {
             Display.sync(60);
         }
 
-        ImGui.shutdownOpenGL2();
+        ImGui.shutdownOpenGL3();
         ImGui.destroyContext();
         Display.destroy();
     }

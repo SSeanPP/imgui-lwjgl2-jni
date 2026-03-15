@@ -3,7 +3,7 @@
 
 extern "C" {
 #include "dcimgui.h"
-#include "backends/dcimgui_impl_opengl2.h"
+#include "backends/dcimgui_impl_opengl3.h"
 
 }
 
@@ -20,7 +20,7 @@ Java_imgui_ImGui_createContext(JNIEnv*, jclass)
 JNIEXPORT void JNICALL
 Java_imgui_ImGui_newFrame(JNIEnv*, jclass)
 {
-    cImGui_ImplOpenGL2_NewFrame();
+    cImGui_ImplOpenGL3_NewFrame();
     ImGui_NewFrame();
 }
 
@@ -28,7 +28,7 @@ JNIEXPORT void JNICALL
 Java_imgui_ImGui_render(JNIEnv*, jclass)
 {
     ImGui_Render();
-    cImGui_ImplOpenGL2_RenderDrawData(ImGui_GetDrawData());
+    cImGui_ImplOpenGL3_RenderDrawData(ImGui_GetDrawData());
 }
 
 JNIEXPORT void JNICALL
@@ -62,14 +62,19 @@ JNIEXPORT void JNICALL Java_imgui_ImGui_setDisplaySize(JNIEnv*, jclass, jfloat w
     ImGui_GetIO()->DisplaySize = (ImVec2){w, h};
 }
 
-JNIEXPORT void JNICALL Java_imgui_ImGui_initOpenGL2(JNIEnv*, jclass)
+JNIEXPORT void JNICALL Java_imgui_ImGui_initOpenGL3(JNIEnv*, jclass)
 {
-    cImGui_ImplOpenGL2_Init();
+    cImGui_ImplOpenGL3_Init();
 }
 
-JNIEXPORT void JNICALL Java_imgui_ImGui_shutdownOpenGL2(JNIEnv*, jclass)
+JNIEXPORT void JNICALL Java_imgui_ImGui_shutdownOpenGL3(JNIEnv*, jclass)
 {
-    cImGui_ImplOpenGL2_Shutdown();
+    cImGui_ImplOpenGL3_Shutdown();
+}
+
+JNIEXPORT void JNICALL Java_imgui_ImGui_setNextWindowPos(JNIEnv* env, jclass, jfloat x, jfloat y)
+{
+    ImGui_SetNextWindowPos((ImVec2){x, y}, 0);
 }
 
 // Demo (proves it works + demonstrates the java array C pointer rubbish)

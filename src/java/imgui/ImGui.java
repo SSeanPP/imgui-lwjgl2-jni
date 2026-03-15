@@ -12,9 +12,10 @@ public class ImGui {
     public static native void end();
     public static native boolean button(String label);
     public static native void setDisplaySize(float width, float height);
-    public static native void initOpenGL2();
-    public static native void shutdownOpenGL2();
-    
+    public static native void initOpenGL3();
+    public static native void shutdownOpenGL3();
+    public static native void setNextWindowPos(float width, float height);
+
     public static native void setMousePos(float x, float y);
     public static native void setMouseButton(int button, boolean down);
     public static native void showDemoWindow(boolean[] pOpen);

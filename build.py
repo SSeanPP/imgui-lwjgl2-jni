@@ -4,7 +4,7 @@ imgui-lwjgl2-jni build script
 -------------------------------
 1. Checks / clones imgui and dear_bindings if missing
 2. Creates a venv and installs dear_bindings requirements
-3. Runs dear_bindings to generate dcimgui.h / dcimgui.cpp + opengl2 backend
+3. Runs dear_bindings to generate dcimgui.h / dcimgui.cpp + opengl3 backend
 4. Compiles imgui_jni.dll (Windows) / .so (Linux) / .dylib (macOS)
 5. Compiles ImGui.java + Input.java into imgui-lwjgl2-jni.jar
 
@@ -47,7 +47,7 @@ DEFAULT_IMGUI_URL = "https://github.com/ocornut/imgui.git"
 DEFAULT_DB_URL    = "https://github.com/dearimgui/dear_bindings.git"
 
 # Only opengl2 backend needed for LWJGL 2
-BACKENDS = ["opengl2"]
+BACKENDS = ["opengl2", "opengl3"]
 
 # ── Platform detection ────────────────────────────────────────────────────────
 
@@ -280,10 +280,10 @@ def step_compile(java_home):
         str(IMGUI_DIR / "imgui_widgets.cpp"),
         str(IMGUI_DIR / "imgui_tables.cpp"),
         str(IMGUI_DIR / "imgui_demo.cpp"),
-        str(backends_src / "imgui_impl_opengl2.cpp"),
+        str(backends_src / "imgui_impl_opengl3.cpp"),
         str(DB_GENERATED / "dcimgui.cpp"),
         str(SRC / "dcimgui_impl.cpp"),
-        str(db_backends / "dcimgui_impl_opengl2.cpp"),
+        str(db_backends / "dcimgui_impl_opengl3.cpp"),
         str(SRC / "imgui_jni.cpp"),
     ]
 
