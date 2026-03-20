@@ -25,7 +25,7 @@ public class ImGui {
     public static native boolean wantCaptureKeyboard();
     public static native boolean wantCaptureMouse();
 
-    public static native void text(String label);
-    public static native void progressBar(float fraction, String overlay);
+    public static native void text(byte[] utf8Buffer, int len);
+    public static native void progressBar(byte[] utf8Buffer, int len, float fraction);
     public static native void separator();
 }

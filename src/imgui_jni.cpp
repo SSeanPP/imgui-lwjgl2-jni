@@ -1,5 +1,8 @@
 #define CIMGUI_DEFINE_ENUMS_AND_STRUCTS
 #include <jni.h>
+#include <cstring>
+#include <pthread.h>
+
 
 extern "C" {
 #include "dcimgui.h"
@@ -127,18 +130,42 @@ JNIEXPORT void JNICALL Java_imgui_ImGui_setMouseButton(JNIEnv*, jclass, jint btn
 }
 
 //Actual IMGUI components of interest
-JNIEXPORT void JNICALL Java_imgui_ImGui_text(JNIEnv* env, jclass, jstring label)
+JNIEXPORT void JNICALL Java_imgui_ImGui_text___3BI(JNIEnv* env, jclass, jbyteArray arr, jint len)
 {
-    const char* str = env->GetStringUTFChars(label, 0);
-    ImGui_Text("%s", str);
-    env->ReleaseStringUTFChars(label, str);
+    static __thread char* buffer = NULL;
+    static __thread int bufferLen = 0;
+
+    if (len + 1 > bufferLen) {
+        if (buffer != NULL) free(buffer);
+        bufferLen = len + 1;
+        buffer = (char*)malloc(bufferLen); // allocate once, reused until resized
+    }
+
+    jbyte* bytes = env->GetByteArrayElements(arr, NULL);
+    memcpy(buffer, bytes, len);
+    buffer[len] = 0;
+    ImGui_Text("%s", buffer);
+    env->ReleaseByteArrayElements(arr, bytes, JNI_ABORT);
 }
 
-JNIEXPORT void JNICALL Java_imgui_ImGui_progressBar(JNIEnv* env, jclass, jfloat fraction, jstring overlay)
+JNIEXPORT void JNICALL Java_imgui_ImGui_progressBar___3BIF(JNIEnv* env, jclass, jbyteArray arr, jint len, jfloat fraction)
 {
-    const char* str = env->GetStringUTFChars(overlay, 0);
-    ImGui_ProgressBar(fraction, (ImVec2){-1, 0}, str);
-    env->ReleaseStringUTFChars(overlay, str);
+    static char* buffer = nullptr;    // persistent buffer across calls
+    static int bufferCapacity = 0;    // current capacity of buffer
+
+    if (len + 1 > bufferCapacity) {
+        if (buffer) free(buffer);
+        bufferCapacity = len + 1;
+        buffer = (char*)malloc(bufferCapacity);
+    }
+
+    jbyte* bytes = env->GetByteArrayElements(arr, NULL);
+    memcpy(buffer, bytes, len);
+    buffer[len] = 0;
+    env->ReleaseByteArrayElements(arr, bytes, JNI_ABORT);
+
+    // Call ImGui
+    ImGui_ProgressBar(fraction, (ImVec2){-1, 0}, buffer);
 }
 
 JNIEXPORT void JNICALL Java_imgui_ImGui_separator(JNIEnv* env, jclass)
