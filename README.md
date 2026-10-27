@@ -76,7 +76,7 @@ $env:GXX = "C:\\Program Files\\w64devkit\\bin\\g++.exe"
 **1. Clone this repo**
 
 ```bash
-git clone https://github.com/yourname/imgui-lwjgl2-jni.git
+git clone https://github.com/SSeanPP/imgui-lwjgl2-jni.git
 cd imgui-lwjgl2-jni
 ```
 
